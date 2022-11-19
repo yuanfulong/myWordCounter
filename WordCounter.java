@@ -55,3 +55,39 @@ public class WordCounter {
     public static void main(String[] args) {
         String a1 = args[0];
         String a2 = args[1];
+        
+        String result = null;
+        WordCounterbz wc = new WordCounterbz();
+        if (args.length == 0) {
+            result = "usage: java WordCounter [options] [input_file]";//失败的那句话
+        }
+        if (args.length == 1 || !a1.contains("-")) {
+            wc.charCounter(a1);
+            wc.wordCounter(a1);
+            wc.lineCounter(a1);
+            result = wc.charCounter(a1) + "|" + wc.wordCounter(a1) + "|" + wc.lineCounter(a1) + "|" + a1;
+        }
+        if (a1.contains("-") || args.length == 1) {
+            result = "usage: java WordCounter [options] [input_file]";//失败的那句话
+        }
+        boolean lt = a1.contains("l");
+        boolean wt = a1.contains("w");
+        boolean ct = a1.contains("c");
+        if (args.length == 2) {
+            wc.charCounter(a2);
+            wc.wordCounter(a2);
+            wc.lineCounter(a2);
+            if (lt) {
+                result += wc.charCounter(a1) + "|";
+            }
+            if (wt) {
+                result += wc.wordCounter(a1) + "|";
+            }
+            if (ct) {
+                result += wc.lineCounter(a1) + "|";
+            }
+            result += a2;
+        } //这样三种结果不论有哪一种都能够按照lwc的顺序输出
+        System.out.print(result);
+    }
+}
